@@ -49,125 +49,9 @@
       overflow-y: auto;
       padding: 2rem 1rem;
       position: relative;
-      opacity: 0;
-      transition: opacity 1s ease-out;
     }
 
-    body.experience-visible {
-      opacity: 1;
-    }
-
-    /* FULLSCREEN INTRO OVERLAY */
-    .intro-overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top, #251038, #05010b 70%);
-      overflow: hidden;
-      transition: opacity 1s ease-out, visibility 1s ease-out;
-    }
-
-    .intro-overlay.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .intro-stars {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background: radial-gradient(circle at bottom, rgba(255,255,255,0.05), transparent 60%);
-    }
-
-    .intro-orbit,
-    .intro-orbit-2 {
-      position: absolute;
-      border-radius: 999px;
-      border: 1px dashed rgba(255,215,0,0.6);
-      box-shadow: 0 0 20px rgba(255,215,0,0.8), 0 0 40px rgba(233,69,96,0.5);
-      animation: orbit-spin 14s linear infinite;
-    }
-
-    .intro-orbit {
-      width: 60vmin;
-      height: 60vmin;
-    }
-
-    .intro-orbit-2 {
-      width: 40vmin;
-      height: 40vmin;
-      animation-duration: 20s;
-      animation-direction: reverse;
-    }
-
-    .intro-heading {
-      font-family: "Limelight", cursive;
-      font-size: 3.2rem;
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      color: var(--gold-light);
-      text-shadow: 0 0 18px rgba(255,215,0,0.7);
-      margin-bottom: 1.5rem;
-      z-index: 1;
-    }
-
-    .intro-subtitle {
-      font-size: 1.4rem;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 3rem;
-      z-index: 1;
-    }
-
-    .create-magic-button {
-      position: relative;
-      z-index: 1;
-      font-family: "Limelight", cursive;
-      font-size: 1.6rem;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      padding: 0.9rem 2.8rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,215,0,0.9);
-      color: #1a0b2e;
-      background: linear-gradient(120deg, #fff8dc, #ffd700, #ffb6ff, #fff8dc);
-      background-size: 300%;
-      cursor: pointer;
-      box-shadow: 0 0 20px rgba(255,215,0,0.8), 0 0 50px rgba(233,69,96,0.6);
-      animation: shimmer 3s linear infinite, floaty 4s ease-in-out infinite;
-    }
-
-    .create-magic-button:hover {
-      filter: brightness(1.1);
-    }
-
-    .create-magic-button:focus {
-      outline: none;
-    }
-
-    @keyframes shimmer {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    @keyframes floaty {
-      0%,100% { transform: translateY(0); }
-      50%     { transform: translateY(-6px); }
-    }
-
-    @keyframes orbit-spin {
-      0%   { transform: rotate(0deg);   opacity: 0.8; }
-      100% { transform: rotate(360deg); opacity: 1;   }
-    }
-
-    /* SPACE BACKGROUND (MAIN EXPERIENCE) */
+    /* COLORFUL GALAXY BACKGROUND */
     .space-background {
       position: fixed;
       top: 0;
@@ -217,7 +101,7 @@
       100% { opacity: 1; transform: translate(-50%, -50%) scale(1.05) rotate(-28deg); }
     }
 
-    /* Simplified stars just for motion */
+    /* STARFIELDS (minimal, decorative) */
     #stars-small,
     #stars-medium,
     #stars-large,
@@ -241,28 +125,32 @@
 
     #stars-small,
     #stars-small::after {
-      width: 1px; height: 1px;
+      width: 1px;
+      height: 1px;
       box-shadow: 1206px 1877px rgba(255,245,250,0.6), 1620px 1862px rgba(255,245,250,0.6);
       animation: animStar 150s linear infinite;
     }
 
     #stars-medium,
     #stars-medium::after {
-      width: 2px; height: 2px;
+      width: 2px;
+      height: 2px;
       box-shadow: 529px 1045px rgba(255,230,240,0.8), 1449px 1627px rgba(255,230,240,0.8);
       animation: animStar 100s linear infinite;
     }
 
     #stars-large,
     #stars-large::after {
-      width: 3px; height: 3px;
+      width: 3px;
+      height: 3px;
       box-shadow: 1872px 742px #ffffff, 420px 1690px #ffffff;
       animation: animStar 50s linear infinite;
     }
 
     #stars-gold,
     #stars-gold::after {
-      width: 2px; height: 2px;
+      width: 2px;
+      height: 2px;
       box-shadow: 600px 1800px rgba(255,215,0,0.7), 1500px 1200px rgba(255,215,0,0.7);
       animation: animStar 75s linear infinite;
     }
@@ -272,7 +160,7 @@
       to   { transform: translateY(-2000px); }
     }
 
-    /* FOREGROUND MODEL */
+    /* FOREGROUND */
     .model-glow {
       position: absolute;
       top: 15%;
@@ -308,6 +196,106 @@
 
     model-viewer::part(default-progress-bar) {
       display: none;
+    }
+
+    /* LOADING OVERLAY */
+    .model-loading-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: radial-gradient(circle at top, rgba(0,0,0,0.55), rgba(0,0,0,0.9));
+      z-index: 5;
+      pointer-events: none;
+      opacity: 1;
+      transition: opacity 0.8s ease-out;
+    }
+
+    .model-loading-overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .sparkle-orbit,
+    .sparkle-orbit-2 {
+      position: absolute;
+      border-radius: 999px;
+      border: 1px dashed rgba(255,215,0,0.5);
+      box-shadow: 0 0 10px rgba(255,215,0,0.7), 0 0 25px rgba(233,69,96,0.4);
+      animation: orbit-spin 8s linear infinite;
+    }
+
+    .sparkle-orbit {
+      width: 55%;
+      height: 55%;
+    }
+
+    .sparkle-orbit-2 {
+      width: 35%;
+      height: 35%;
+      animation-duration: 12s;
+      animation-direction: reverse;
+      border-style: solid;
+    }
+
+    .creating-magic-text {
+      font-family: "Limelight", cursive;
+      font-size: 2.4rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      position: relative;
+      padding: 0.4em 0.8em;
+      color: #ffffff;
+      background: linear-gradient(120deg,
+        #fff8dc,
+        #ffd700,
+        #ff9fd8,
+        #fff8dc,
+        #ffd700);
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s linear infinite;
+      text-shadow: 0 0 12px rgba(255,215,0,0.7), 0 0 30px rgba(233,69,96,0.4);
+    }
+
+    .creating-magic-text::before,
+    .creating-magic-text::after {
+      content: "✦";
+      position: absolute;
+      font-size: 1rem;
+      color: #fff8dc;
+      text-shadow: 0 0 10px rgba(255,255,255,0.9);
+      animation: twinkle 1.6s ease-in-out infinite alternate;
+    }
+
+    .creating-magic-text::before {
+      top: -0.6em;
+      left: -0.4em;
+    }
+
+    .creating-magic-text::after {
+      bottom: -0.6em;
+      right: -0.3em;
+      animation-delay: 0.7s;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    @keyframes twinkle {
+      0%   { opacity: 0.2; transform: scale(0.8) rotate(0deg); }
+      100% { opacity: 1;   transform: scale(1.2) rotate(25deg); }
+    }
+
+    @keyframes orbit-spin {
+      0%   { transform: rotate(0deg);   opacity: 0.8; }
+      100% { transform: rotate(360deg); opacity: 1;   }
     }
 
     /* ART DECO CARD */
@@ -441,17 +429,6 @@
   </style>
 </head>
 <body>
-  <!-- FULLSCREEN INTRO -->
-  <div class="intro-overlay" id="intro">
-    <div class="intro-stars"></div>
-    <div class="intro-orbit"></div>
-    <div class="intro-orbit intro-orbit-2"></div>
-    <div class="intro-heading">Happy Birthday Tina</div>
-    <div class="intro-subtitle">A Digital Love Letter</div>
-    <button class="create-magic-button" id="startButton">Create Magic</button>
-  </div>
-
-  <!-- MAIN EXPERIENCE -->
   <div class="space-background">
     <div class="milky-way-core"></div>
     <div class="nebula-warmth"></div>
@@ -464,6 +441,12 @@
   <div class="model-glow"></div>
 
   <div class="model-container">
+    <div class="model-loading-overlay" id="loading-overlay">
+      <div class="sparkle-orbit"></div>
+      <div class="sparkle-orbit sparkle-orbit-2"></div>
+      <div class="creating-magic-text">Creating Magic</div>
+    </div>
+
     <model-viewer
       id="birthday-model"
       src="undulating.glb"
@@ -503,10 +486,8 @@
   </div>
 
   <script>
-    const body = document.body;
-    const intro = document.getElementById('intro');
-    const startButton = document.getElementById('startButton');
-    const modelViewer = document.querySelector('#birthday-model');
+    const modelViewer = document.querySelector("#birthday-model");
+    const loadingOverlay = document.querySelector("#loading-overlay");
     let theta = 0;
     let phi = 75;
 
@@ -517,14 +498,11 @@
       requestAnimationFrame(animateMultiSpin);
     }
 
-    startButton.addEventListener('click', () => {
-      // Begin fading out intro and bring in main body
-      intro.classList.add('hidden');
-      body.classList.add('experience-visible');
-      // Start spinning once the model loads
-      modelViewer.addEventListener('load', () => {
-        animateMultiSpin();
-      }, { once: true });
+    modelViewer.addEventListener("load", () => {
+      animateMultiSpin();
+      if (loadingOverlay) {
+        loadingOverlay.classList.add("hidden");
+      }
     });
   </script>
 </body>
