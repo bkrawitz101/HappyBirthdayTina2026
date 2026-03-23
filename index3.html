@@ -247,7 +247,7 @@
     /* ART DECO WIDE CARD (THE OPEN BOOK) */
     .art-deco-wrapper {
       position: relative;
-      max-width: 1200px; 
+      max-width: 1200px; /* Much wider for side-by-side */
       width: 95%;
       margin: 2rem 0;
       z-index: 1;
@@ -273,6 +273,7 @@
       outline: 1px solid rgba(255,215,0,0.2);
       outline-offset: -8px;
 
+      /* Flex layout for the Open Card */
       display: flex;
       flex-direction: row;
       align-items: stretch;
@@ -288,6 +289,7 @@
     .motif-top    { top: -6px;  border-bottom: none; background: var(--gold-dark); }
     .motif-bottom { bottom: -6px; border-top: none;    background: var(--gold-dark); }
 
+    /* Left and Right Pages */
     .card-page {
       flex: 1;
       display: flex;
@@ -301,6 +303,7 @@
       padding-left: 1rem;
     }
 
+    /* The 'Fold' of the open card */
     .card-fold {
       width: 2px;
       background: linear-gradient(to bottom, transparent, rgba(255,215,0,0.4), transparent);
@@ -376,42 +379,6 @@
       text-shadow: 0 0 12px rgba(255,215,0,0.4);
     }
 
-    /* AUDIO CONTROLS (Hidden by default, subtle) */
-    .audio-controls {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      z-index: 100;
-      background: rgba(20,8,30,0.7);
-      border: 1px solid var(--gold-accent);
-      padding: 10px 15px;
-      border-radius: 50px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      backdrop-filter: blur(5px);
-      opacity: 0;
-      transition: opacity 1s;
-    }
-
-    .audio-controls.visible {
-      opacity: 1;
-    }
-
-    .audio-controls button {
-      background: none;
-      border: none;
-      color: var(--gold-accent);
-      cursor: pointer;
-      font-family: "Poiret One", cursive;
-      font-size: 1rem;
-      font-weight: bold;
-    }
-
-    .audio-controls button:hover {
-      color: var(--gold-light);
-    }
-
     /* RESPONSIVE (MOBILE) */
     @media (max-width: 960px) {
       body { padding: 1rem 0.5rem; justify-content: flex-start; }
@@ -435,18 +402,6 @@
   </style>
 </head>
 <body>
-
-  <!-- Audio Element -->
-  <audio id="bg-music" loop preload="auto">
-    <source src="Atomic_Light_Tina_s_Anthem_.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- Optional Subtle Audio Controls -->
-  <div class="audio-controls" id="audioControls">
-    <span style="font-size: 0.9rem;">🎵 Atomic Light</span>
-    <button id="muteBtn">Mute</button>
-  </div>
-
   <!-- FULLSCREEN INTRO (CLICK TO START) -->
   <div class="intro-overlay" id="intro">
     <div class="intro-stars"></div>
@@ -530,10 +485,6 @@
     const startButton = document.getElementById('startButton');
     const creatingMagic = document.getElementById('creatingMagic');
     const modelViewer = document.querySelector('#birthday-model');
-    const bgMusic = document.getElementById('bg-music');
-    const audioControls = document.getElementById('audioControls');
-    const muteBtn = document.getElementById('muteBtn');
-
     let theta = 0;
     let phi = 75;
 
@@ -544,29 +495,14 @@
       requestAnimationFrame(animateMultiSpin);
     }
 
-    // Audio Mute Toggle
-    muteBtn.addEventListener('click', () => {
-      if (bgMusic.muted) {
-        bgMusic.muted = false;
-        muteBtn.textContent = "Mute";
-      } else {
-        bgMusic.muted = true;
-        muteBtn.textContent = "Unmute";
-      }
-    });
-
     startButton.addEventListener('click', () => {
-      // 1. Play the music immediately on click (browsers require user interaction to play audio)
-      bgMusic.play().catch(e => console.log("Audio play failed:", e));
-
-      // 2. Hide intro, show Creating Magic overlay full screen
+      // Hide intro, show Creating Magic overlay full screen
       intro.style.display = 'none';
       creatingMagic.classList.add('visible');
 
-      // 3. When the model finishes loading, fade out the Creating Magic overlay and start the spin
+      // When the model finishes loading, fade out the Creating Magic overlay and start the spin
       modelViewer.addEventListener('load', () => {
         creatingMagic.classList.add('hidden');
-        audioControls.classList.add('visible'); // Show audio controls when site appears
         animateMultiSpin();
       }, { once: true });
     });
