@@ -49,12 +49,6 @@
       overflow-y: auto;
       padding: 2rem 1rem;
       position: relative;
-      opacity: 0;
-      transition: opacity 1s ease-out;
-    }
-
-    body.experience-visible {
-      opacity: 1;
     }
 
     /* FULLSCREEN INTRO OVERLAY */
@@ -68,13 +62,6 @@
       justify-content: center;
       background: radial-gradient(circle at top, #251038, #05010b 70%);
       overflow: hidden;
-      transition: opacity 1s ease-out, visibility 1s ease-out;
-    }
-
-    .intro-overlay.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
     }
 
     .intro-stars {
@@ -114,6 +101,7 @@
       text-shadow: 0 0 18px rgba(255,215,0,0.7);
       margin-bottom: 1.5rem;
       z-index: 1;
+      text-align: center;
     }
 
     .intro-subtitle {
@@ -123,6 +111,7 @@
       color: var(--text-muted);
       margin-bottom: 3rem;
       z-index: 1;
+      text-align: center;
     }
 
     .create-magic-button {
@@ -503,7 +492,6 @@
   </div>
 
   <script>
-    const body = document.body;
     const intro = document.getElementById('intro');
     const startButton = document.getElementById('startButton');
     const modelViewer = document.querySelector('#birthday-model');
@@ -518,10 +506,7 @@
     }
 
     startButton.addEventListener('click', () => {
-      // Begin fading out intro and bring in main body
-      intro.classList.add('hidden');
-      body.classList.add('experience-visible');
-      // Start spinning once the model loads
+      intro.style.display = 'none';
       modelViewer.addEventListener('load', () => {
         animateMultiSpin();
       }, { once: true });
