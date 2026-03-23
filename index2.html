@@ -44,7 +44,6 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
       min-height: 100vh;
       overflow-x: hidden;
       overflow-y: auto;
@@ -81,8 +80,17 @@
       animation: orbit-spin 14s linear infinite;
     }
 
-    .intro-orbit { width: 60vmin; height: 60vmin; }
-    .intro-orbit-2 { width: 40vmin; height: 40vmin; animation-duration: 20s; animation-direction: reverse; }
+    .intro-orbit {
+      width: 60vmin;
+      height: 60vmin;
+    }
+
+    .intro-orbit-2 {
+      width: 40vmin;
+      height: 40vmin;
+      animation-duration: 20s;
+      animation-direction: reverse;
+    }
 
     .intro-heading {
       font-family: "Limelight", cursive;
@@ -142,8 +150,15 @@
       transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
     }
 
-    .creating-magic-overlay.visible { display: flex; }
-    .creating-magic-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .creating-magic-overlay.visible {
+      display: flex;
+    }
+
+    .creating-magic-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
 
     .sparkle-orbit,
     .sparkle-orbit-2 {
@@ -155,7 +170,13 @@
     }
 
     .sparkle-orbit { width: 55vmin; height: 55vmin; }
-    .sparkle-orbit-2 { width: 35vmin; height: 35vmin; animation-duration: 12s; animation-direction: reverse; border-style: solid; }
+    .sparkle-orbit-2 {
+      width: 35vmin;
+      height: 35vmin;
+      animation-duration: 12s;
+      animation-direction: reverse;
+      border-style: solid;
+    }
 
     .creating-magic-text {
       font-family: "Limelight", cursive;
@@ -165,7 +186,12 @@
       position: relative;
       padding: 0.4em 0.8em;
       color: #ffffff;
-      background: linear-gradient(120deg, #fff8dc, #ffd700, #ff9fd8, #fff8dc, #ffd700);
+      background: linear-gradient(120deg,
+        #fff8dc,
+        #ffd700,
+        #ff9fd8,
+        #fff8dc,
+        #ffd700);
       background-size: 300%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -188,12 +214,28 @@
     .creating-magic-text::before { top: -0.6em; left: -0.4em; }
     .creating-magic-text::after  { bottom: -0.6em; right: -0.3em; animation-delay: 0.7s; }
 
-    @keyframes shimmer { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-    @keyframes twinkle { 0% { opacity: 0.2; transform: scale(0.8) rotate(0deg); } 100% { opacity: 1; transform: scale(1.2) rotate(25deg); } }
-    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-    @keyframes orbit-spin { 0% { transform: rotate(0deg); opacity: 0.8; } 100% { transform: rotate(360deg); opacity: 1; } }
+    @keyframes shimmer {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-    /* SPACE BACKGROUND */
+    @keyframes twinkle {
+      0%   { opacity: 0.2; transform: scale(0.8) rotate(0deg); }
+      100% { opacity: 1;   transform: scale(1.2) rotate(25deg); }
+    }
+
+    @keyframes floaty {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-6px); }
+    }
+
+    @keyframes orbit-spin {
+      0%   { transform: rotate(0deg);   opacity: 0.8; }
+      100% { transform: rotate(360deg); opacity: 1;   }
+    }
+
+    /* SPACE BACKGROUND (MAIN EXPERIENCE) */
     .space-background {
       position: fixed;
       top: 0;
@@ -211,7 +253,11 @@
       left: 50%;
       width: 150vw;
       height: 50vh;
-      background: radial-gradient(ellipse at center, rgba(233, 69, 96, 0.4) 0%, rgba(106, 13, 173, 0.3) 30%, rgba(15, 52, 96, 0.15) 60%, transparent 80%);
+      background: radial-gradient(ellipse at center,
+        rgba(233, 69, 96, 0.4) 0%,
+        rgba(106, 13, 173, 0.3) 30%,
+        rgba(15, 52, 96, 0.15) 60%,
+        transparent 80%);
       transform: translate(-50%, -50%) rotate(-30deg);
       filter: blur(60px);
       opacity: 0.9;
@@ -224,104 +270,89 @@
       left: 30%;
       width: 120vw;
       height: 60vh;
-      background: radial-gradient(ellipse at center, rgba(255, 182, 107, 0.25) 0%, rgba(255, 215, 0, 0.1) 40%, transparent 70%);
+      background: radial-gradient(ellipse at center,
+        rgba(255, 182, 107, 0.25) 0%,
+        rgba(255, 215, 0, 0.1) 40%,
+        transparent 70%);
       transform: translate(-50%, -50%) rotate(20deg);
       filter: blur(70px);
       opacity: 0.8;
       animation: pulse-nebula 13s infinite alternate-reverse;
     }
 
-    @keyframes pulse-nebula { 0% { opacity: 0.7; transform: translate(-50%, -50%) scale(1) rotate(-30deg); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1.05) rotate(-28deg); } }
+    @keyframes pulse-nebula {
+      0% { opacity: 0.7; transform: translate(-50%, -50%) scale(1) rotate(-30deg); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1.05) rotate(-28deg); }
+    }
 
     /* Simplified stars for motion */
-    #stars-small, #stars-medium, #stars-large, #stars-gold { position: absolute; top: 0; left: 0; background: transparent; }
-    #stars-small::after, #stars-medium::after, #stars-large::after, #stars-gold::after { content: " "; position: absolute; top: 2000px; left: 0; background: transparent; }
-
-    #stars-small, #stars-small::after { width: 1px; height: 1px; box-shadow: 1206px 1877px rgba(255,245,250,0.6), 1620px 1862px rgba(255,245,250,0.6); animation: animStar 150s linear infinite; }
-    #stars-medium, #stars-medium::after { width: 2px; height: 2px; box-shadow: 529px 1045px rgba(255,230,240,0.8), 1449px 1627px rgba(255,230,240,0.8); animation: animStar 100s linear infinite; }
-    #stars-large, #stars-large::after { width: 3px; height: 3px; box-shadow: 1872px 742px #ffffff, 420px 1690px #ffffff; animation: animStar 50s linear infinite; }
-    #stars-gold, #stars-gold::after { width: 2px; height: 2px; box-shadow: 600px 1800px rgba(255,215,0,0.7), 1500px 1200px rgba(255,215,0,0.7); animation: animStar 75s linear infinite; }
-
-    @keyframes animStar { from { transform: translateY(0px); } to { transform: translateY(-2000px); } }
-
-    /* ART DECO WIDE CARD (THE OPEN BOOK) */
-    .art-deco-wrapper {
-      position: relative;
-      max-width: 1200px; /* Much wider for side-by-side */
-      width: 95%;
-      margin: 2rem 0;
-      z-index: 1;
-      padding: 15px;
+    #stars-small,
+    #stars-medium,
+    #stars-large,
+    #stars-gold {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: transparent;
     }
 
-    .art-deco-wrapper::before,
-    .art-deco-wrapper::after {
-      content: ""; position: absolute; border: 1px solid var(--gold-accent); pointer-events: none;
-    }
-    .art-deco-wrapper::before { top: 0; bottom: 0; left: 15px; right: 15px; border-top: 2px solid var(--gold-accent); border-bottom: 2px solid var(--gold-accent); border-left: none; border-right: none; }
-    .art-deco-wrapper::after { top: 15px; bottom: 15px; left: 0; right: 0; border-left: 2px solid var(--gold-accent); border-right: 2px solid var(--gold-accent); border-top: none; border-bottom: none; }
-
-    .letter-card {
-      background: rgba(20,8,30,0.65);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      padding: 4rem;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-      color: var(--text-muted);
-      position: relative;
-      border: 1px solid rgba(255,215,0,0.5);
-      outline: 1px solid rgba(255,215,0,0.2);
-      outline-offset: -8px;
-
-      /* Flex layout for the Open Card */
-      display: flex;
-      flex-direction: row;
-      align-items: stretch;
-      justify-content: center;
+    #stars-small::after,
+    #stars-medium::after,
+    #stars-large::after,
+    #stars-gold::after {
+      content: " ";
+      position: absolute;
+      top: 2000px;
+      left: 0;
+      background: transparent;
     }
 
-    .deco-corner { position: absolute; width: 25px; height: 25px; border: 2px solid var(--gold-accent); }
-    .top-left  { top: -1px; left: -1px; border-bottom: none; border-right: none; }
-    .top-right { top: -1px; right: -1px; border-bottom: none; border-left: none; }
-    .bottom-left  { bottom: -1px; left: -1px; border-top: none; border-right: none; }
-    .bottom-right { bottom: -1px; right: -1px; border-top: none; border-left: none; }
-    .deco-motif { position: absolute; left: 50%; transform: translateX(-50%); width: 80px; height: 10px; border: 1px solid var(--gold-accent); }
-    .motif-top    { top: -6px;  border-bottom: none; background: var(--gold-dark); }
-    .motif-bottom { bottom: -6px; border-top: none;    background: var(--gold-dark); }
-
-    /* Left and Right Pages */
-    .card-page {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      position: relative;
+    #stars-small,
+    #stars-small::after {
+      width: 1px; height: 1px;
+      box-shadow: 1206px 1877px rgba(255,245,250,0.6), 1620px 1862px rgba(255,245,250,0.6);
+      animation: animStar 150s linear infinite;
     }
 
-    .card-right {
-      padding-left: 1rem;
+    #stars-medium,
+    #stars-medium::after {
+      width: 2px; height: 2px;
+      box-shadow: 529px 1045px rgba(255,230,240,0.8), 1449px 1627px rgba(255,230,240,0.8);
+      animation: animStar 100s linear infinite;
     }
 
-    /* The 'Fold' of the open card */
-    .card-fold {
-      width: 2px;
-      background: linear-gradient(to bottom, transparent, rgba(255,215,0,0.4), transparent);
-      margin: 0 3rem;
-      align-self: stretch;
+    #stars-large,
+    #stars-large::after {
+      width: 3px; height: 3px;
+      box-shadow: 1872px 742px #ffffff, 420px 1690px #ffffff;
+      animation: animStar 50s linear infinite;
     }
 
-    /* MODEL INSIDE CARD */
+    #stars-gold,
+    #stars-gold::after {
+      width: 2px; height: 2px;
+      box-shadow: 600px 1800px rgba(255,215,0,0.7), 1500px 1200px rgba(255,215,0,0.7);
+      animation: animStar 75s linear infinite;
+    }
+
+    @keyframes animStar {
+      from { transform: translateY(0px); }
+      to   { transform: translateY(-2000px); }
+    }
+
+    /* FOREGROUND MODEL */
     .model-glow {
       position: absolute;
-      top: 50%;
+      top: 15%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      width: 100%;
-      max-width: 500px;
-      aspect-ratio: 1 / 1;
-      background: radial-gradient(circle, rgba(255,215,0,0.15) 0%, rgba(233,69,96,0.05) 50%, transparent 70%);
-      z-index: 0;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle,
+        rgba(255,215,0,0.15) 0%,
+        rgba(233,69,96,0.05) 50%,
+        transparent 70%);
+      z-index: -1;
       filter: blur(35px);
       pointer-events: none;
     }
@@ -329,41 +360,126 @@
     .model-container {
       position: relative;
       width: 100%;
+      max-width: 900px;
       height: 55vh;
       min-height: 400px;
+      margin-bottom: 3rem;
       filter: drop-shadow(0 0 30px rgba(255,215,0,0.25));
       z-index: 1;
     }
 
-    model-viewer { width: 100%; height: 100%; outline: none; }
+    model-viewer {
+      width: 100%;
+      height: 100%;
+      outline: none;
+    }
+
     model-viewer::part(default-progress-bar) { display: none; }
 
-    /* TEXT STYLING */
+    /* ART DECO CARD */
+    .art-deco-wrapper {
+      position: relative;
+      max-width: 800px;
+      width: 95%;
+      margin-bottom: 4rem;
+      z-index: 1;
+      padding: 15px;
+    }
+
+    .art-deco-wrapper::before,
+    .art-deco-wrapper::after {
+      content: "";
+      position: absolute;
+      border: 1px solid var(--gold-accent);
+      pointer-events: none;
+    }
+
+    .art-deco-wrapper::before {
+      top: 0;
+      bottom: 0;
+      left: 15px;
+      right: 15px;
+      border-top: 2px solid var(--gold-accent);
+      border-bottom: 2px solid var(--gold-accent);
+      border-left: none;
+      border-right: none;
+    }
+
+    .art-deco-wrapper::after {
+      top: 15px;
+      bottom: 15px;
+      left: 0;
+      right: 0;
+      border-left: 2px solid var(--gold-accent);
+      border-right: 2px solid var(--gold-accent);
+      border-top: none;
+      border-bottom: none;
+    }
+
+    .letter-card {
+      background: rgba(20,8,30,0.65);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 4rem 5rem;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      line-height: 1.6;
+      font-size: 1.4rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      position: relative;
+      border: 1px solid rgba(255,215,0,0.5);
+      outline: 1px solid rgba(255,215,0,0.2);
+      outline-offset: -8px;
+      text-align: center;
+    }
+
+    .deco-corner {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      border: 2px solid var(--gold-accent);
+    }
+
+    .top-left  { top: -1px; left: -1px; border-bottom: none; border-right: none; }
+    .top-right { top: -1px; right: -1px; border-bottom: none; border-left: none; }
+    .bottom-left  { bottom: -1px; left: -1px; border-top: none; border-right: none; }
+    .bottom-right { bottom: -1px; right: -1px; border-top: none; border-left: none; }
+
+    .deco-motif {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 10px;
+      border: 1px solid var(--gold-accent);
+    }
+
+    .motif-top    { top: -6px;  border-bottom: none; background: var(--gold-dark); }
+    .motif-bottom { bottom: -6px; border-top: none;    background: var(--gold-dark); }
+
     .greeting {
       font-family: "Limelight", cursive;
-      font-size: 2.8rem;
+      font-size: 3rem;
       font-weight: 400;
       margin-bottom: 2rem;
       letter-spacing: 5px;
       color: var(--gold-accent);
       text-transform: uppercase;
       text-shadow: 0 0 15px rgba(255,215,0,0.4);
-      text-align: center;
     }
 
     p {
-      margin-bottom: 1.6rem;
+      margin-bottom: 1.8rem;
       font-family: "Poiret One", cursive;
-      font-size: 1.35rem;
-      line-height: 1.6;
+      font-size: 1.45rem;
       letter-spacing: 1px;
       font-weight: 600;
       text-align: center;
     }
 
     .closing {
-      margin-top: 3rem;
-      font-size: 1.4rem;
+      margin-top: 3.5rem;
+      font-size: 1.5rem;
       font-weight: 600;
       color: var(--text-main);
       text-align: center;
@@ -371,33 +487,22 @@
 
     .signature {
       font-family: "Limelight", cursive;
-      font-size: 1.8rem;
-      margin-top: 0.8rem;
+      font-size: 2rem;
+      margin-top: 1rem;
       letter-spacing: 3px;
       color: var(--gold-accent);
       text-transform: uppercase;
       text-shadow: 0 0 12px rgba(255,215,0,0.4);
     }
 
-    /* RESPONSIVE (MOBILE) */
-    @media (max-width: 960px) {
-      body { padding: 1rem 0.5rem; justify-content: flex-start; }
-      .art-deco-wrapper { margin-top: 1rem; }
-      .letter-card { 
-        flex-direction: column; 
-        padding: 3rem 1.5rem; 
-      }
-      .card-fold {
-        width: 100%;
-        height: 2px;
-        background: linear-gradient(to right, transparent, rgba(255,215,0,0.4), transparent);
-        margin: 2rem 0;
-      }
-      .card-right { padding-left: 0; }
-      .model-container { height: 45vh; min-height: 350px; }
-      .greeting { font-size: 2.2rem; }
-      p { font-size: 1.25rem; }
-      .signature { font-size: 1.6rem; }
+    @media (max-width: 768px) {
+      .art-deco-wrapper { padding: 10px; }
+      .art-deco-wrapper::before { left: 10px; right: 10px; }
+      .art-deco-wrapper::after  { top: 10px;  bottom: 10px; }
+      .letter-card { padding: 3rem 2rem; outline-offset: -6px; }
+      .greeting   { font-size: 2.2rem; }
+      p           { font-size: 1.25rem; }
+      .signature  { font-size: 1.6rem; }
     }
   </style>
 </head>
@@ -429,7 +534,21 @@
     <div id="stars-gold"></div>
   </div>
 
-  <!-- WIDE ART DECO CARD (OPEN BOOK) -->
+  <div class="model-glow"></div>
+
+  <div class="model-container">
+    <model-viewer
+      id="birthday-model"
+      src="undulating.glb"
+      loading="lazy"
+      environment-image="neutral"
+      exposure="1.2"
+      camera-controls
+      interaction-prompt="none"
+      shadow-intensity="1">
+    </model-viewer>
+  </div>
+
   <div class="art-deco-wrapper">
     <div class="letter-card">
       <div class="deco-corner top-left"></div>
@@ -439,44 +558,20 @@
       <div class="deco-motif motif-top"></div>
       <div class="deco-motif motif-bottom"></div>
 
-      <!-- LEFT PAGE: 3D MODEL -->
-      <div class="card-page card-left">
-        <div class="model-glow"></div>
-        <div class="model-container">
-          <model-viewer
-            id="birthday-model"
-            src="undulating.glb"
-            loading="lazy"
-            environment-image="neutral"
-            exposure="1.2"
-            camera-controls
-            interaction-prompt="none"
-            shadow-intensity="1">
-          </model-viewer>
-        </div>
+      <div class="greeting">My Love</div>
+
+      <p>On this day you were born, a beautiful moment sparked for everyone in your universe. One lives their life every day through the spectrum of emotion. We all go through incredible times as well as challenging times, but regardless, present life is our gift, with our past experience as our foundation and our future moments for our dreams.</p>
+
+      <p>Created by intersections of center points, I designed this beautiful, undulating (your suggestion) concept sculpture, and realized what started out as something that did not quite make sense turned into something spectacular, based on time and patience, and a little inspiration from you.</p>
+
+      <p>There is always inspiration from you in everything I create, and every moment I am thankful for having you in my life.</p>
+
+      <p>Wishing you a very happy birthday, with many more magical ones to come.</p>
+
+      <div class="closing">
+        With Love,<br />
+        <div class="signature">Your Dragon King</div>
       </div>
-
-      <!-- MIDDLE FOLD -->
-      <div class="card-fold"></div>
-
-      <!-- RIGHT PAGE: TEXT -->
-      <div class="card-page card-right">
-        <div class="greeting">My Love</div>
-
-        <p>On this day you were born, a beautiful moment sparked for everyone in your universe. One lives their life every day through the spectrum of emotion. We all go through incredible times as well as challenging times, but regardless, present life is our gift, with our past experience as our foundation and our future moments for our dreams.</p>
-
-        <p>Created by intersections of center points, I designed this beautiful, undulating (your suggestion) concept sculpture, and realized what started out as something that did not quite make sense turned into something spectacular, based on time and patience, and a little inspiration from you.</p>
-
-        <p>There is always inspiration from you in everything I create, and every moment I am thankful for having you in my life.</p>
-
-        <p>Wishing you a very happy birthday, with many more magical ones to come.</p>
-
-        <div class="closing">
-          With Love,<br />
-          <div class="signature">Your Dragon King</div>
-        </div>
-      </div>
-
     </div>
   </div>
 
