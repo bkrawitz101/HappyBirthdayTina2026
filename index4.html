@@ -14,9 +14,6 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
 
-  <!-- Preload the GLB model to speed up download -->
-  <link rel="preload" href="undulating.glb" as="fetch" crossorigin="anonymous" />
-
   <!-- model-viewer -->
   <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
 
@@ -395,12 +392,10 @@
       backdrop-filter: blur(5px);
       opacity: 0;
       transition: opacity 1s;
-      pointer-events: none; /* disabled until visible */
     }
 
     .audio-controls.visible {
       opacity: 1;
-      pointer-events: auto;
     }
 
     .audio-controls button {
@@ -493,11 +488,10 @@
       <div class="card-page card-left">
         <div class="model-glow"></div>
         <div class="model-container">
-          <!-- CRITICAL FIX: Changed loading="lazy" to "eager" so it downloads immediately -->
           <model-viewer
             id="birthday-model"
             src="undulating.glb"
-            loading="eager"
+            loading="lazy"
             environment-image="neutral"
             exposure="1.2"
             camera-controls
@@ -542,24 +536,12 @@
 
     let theta = 0;
     let phi = 75;
-    let isModelLoaded = false;
-
-    // CRITICAL FIX: Track if the model loads *before* the user clicks the start button
-    modelViewer.addEventListener('load', () => {
-      isModelLoaded = true;
-    });
 
     function animateMultiSpin() {
       theta += 0.2;
       phi = 75 + Math.sin(theta * 0.02) * 15;
       modelViewer.cameraOrbit = `${theta}deg ${phi}deg auto`;
       requestAnimationFrame(animateMultiSpin);
-    }
-
-    function revealSite() {
-      creatingMagic.classList.add('hidden');
-      audioControls.classList.add('visible');
-      animateMultiSpin();
     }
 
     // Audio Mute Toggle
@@ -574,21 +556,19 @@
     });
 
     startButton.addEventListener('click', () => {
-      // 1. Play audio immediately 
+      // 1. Play the music immediately on click (browsers require user interaction to play audio)
       bgMusic.play().catch(e => console.log("Audio play failed:", e));
 
-      // 2. Hide intro
+      // 2. Hide intro, show Creating Magic overlay full screen
       intro.style.display = 'none';
+      creatingMagic.classList.add('visible');
 
-      // 3. Logic to prevent the "stuck loading" bug
-      if (isModelLoaded) {
-        // If the user waited on the intro screen and the model already loaded in the background, skip the loading screen entirely!
-        revealSite();
-      } else {
-        // Show loading screen and wait for the model to finish
-        creatingMagic.classList.add('visible');
-        modelViewer.addEventListener('load', revealSite, { once: true });
-      }
+      // 3. When the model finishes loading, fade out the Creating Magic overlay and start the spin
+      modelViewer.addEventListener('load', () => {
+        creatingMagic.classList.add('hidden');
+        audioControls.classList.add('visible'); // Show audio controls when site appears
+        animateMultiSpin();
+      }, { once: true });
     });
   </script>
 </body>
