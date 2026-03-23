@@ -51,11 +51,11 @@
       position: relative;
     }
 
-    /* FULLSCREEN INTRO OVERLAY */
+    /* FULLSCREEN INTRO OVERLAY (CLICK TO START) */
     .intro-overlay {
       position: fixed;
       inset: 0;
-      z-index: 9999;
+      z-index: 10000;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -132,18 +132,97 @@
       animation: shimmer 3s linear infinite, floaty 4s ease-in-out infinite;
     }
 
-    .create-magic-button:hover {
-      filter: brightness(1.1);
+    .create-magic-button:hover { filter: brightness(1.1); }
+    .create-magic-button:focus { outline: none; }
+
+    /* CREATING MAGIC LOADER (FULLSCREEN AFTER CLICK) */
+    .creating-magic-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: radial-gradient(circle at center, #140820, #05010b 75%);
+      overflow: hidden;
+      opacity: 1;
+      transition: opacity 0.8s ease-out, visibility 0.8s ease-out;
     }
 
-    .create-magic-button:focus {
-      outline: none;
+    .creating-magic-overlay.visible {
+      display: flex;
     }
+
+    .creating-magic-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .sparkle-orbit,
+    .sparkle-orbit-2 {
+      position: absolute;
+      border-radius: 999px;
+      border: 1px dashed rgba(255,215,0,0.5);
+      box-shadow: 0 0 10px rgba(255,215,0,0.7), 0 0 25px rgba(233,69,96,0.4);
+      animation: orbit-spin 8s linear infinite;
+    }
+
+    .sparkle-orbit { width: 55vmin; height: 55vmin; }
+    .sparkle-orbit-2 {
+      width: 35vmin;
+      height: 35vmin;
+      animation-duration: 12s;
+      animation-direction: reverse;
+      border-style: solid;
+    }
+
+    .creating-magic-text {
+      font-family: "Limelight", cursive;
+      font-size: 2.6rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      position: relative;
+      padding: 0.4em 0.8em;
+      color: #ffffff;
+      background: linear-gradient(120deg,
+        #fff8dc,
+        #ffd700,
+        #ff9fd8,
+        #fff8dc,
+        #ffd700);
+      background-size: 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shimmer 3s linear infinite;
+      text-shadow: 0 0 12px rgba(255,215,0,0.7), 0 0 30px rgba(233,69,96,0.4);
+      z-index: 1;
+      text-align: center;
+    }
+
+    .creating-magic-text::before,
+    .creating-magic-text::after {
+      content: "✦";
+      position: absolute;
+      font-size: 1rem;
+      color: #fff8dc;
+      text-shadow: 0 0 10px rgba(255,255,255,0.9);
+      animation: twinkle 1.6s ease-in-out infinite alternate;
+    }
+
+    .creating-magic-text::before { top: -0.6em; left: -0.4em; }
+    .creating-magic-text::after  { bottom: -0.6em; right: -0.3em; animation-delay: 0.7s; }
 
     @keyframes shimmer {
       0%   { background-position: 0% 50%; }
       50%  { background-position: 100% 50%; }
       100% { background-position: 0% 50%; }
+    }
+
+    @keyframes twinkle {
+      0%   { opacity: 0.2; transform: scale(0.8) rotate(0deg); }
+      100% { opacity: 1;   transform: scale(1.2) rotate(25deg); }
     }
 
     @keyframes floaty {
@@ -206,7 +285,7 @@
       100% { opacity: 1; transform: translate(-50%, -50%) scale(1.05) rotate(-28deg); }
     }
 
-    /* Simplified stars just for motion */
+    /* Simplified stars for motion */
     #stars-small,
     #stars-medium,
     #stars-large,
@@ -295,9 +374,7 @@
       outline: none;
     }
 
-    model-viewer::part(default-progress-bar) {
-      display: none;
-    }
+    model-viewer::part(default-progress-bar) { display: none; }
 
     /* ART DECO CARD */
     .art-deco-wrapper {
@@ -430,7 +507,7 @@
   </style>
 </head>
 <body>
-  <!-- FULLSCREEN INTRO -->
+  <!-- FULLSCREEN INTRO (CLICK TO START) -->
   <div class="intro-overlay" id="intro">
     <div class="intro-stars"></div>
     <div class="intro-orbit"></div>
@@ -438,6 +515,13 @@
     <div class="intro-heading">Happy Birthday Tina</div>
     <div class="intro-subtitle">A Digital Love Letter</div>
     <button class="create-magic-button" id="startButton">Create Magic</button>
+  </div>
+
+  <!-- FULLSCREEN CREATING MAGIC LOADER -->
+  <div class="creating-magic-overlay" id="creatingMagic">
+    <div class="sparkle-orbit"></div>
+    <div class="sparkle-orbit sparkle-orbit-2"></div>
+    <div class="creating-magic-text">Creating Magic</div>
   </div>
 
   <!-- MAIN EXPERIENCE -->
@@ -494,6 +578,7 @@
   <script>
     const intro = document.getElementById('intro');
     const startButton = document.getElementById('startButton');
+    const creatingMagic = document.getElementById('creatingMagic');
     const modelViewer = document.querySelector('#birthday-model');
     let theta = 0;
     let phi = 75;
@@ -506,8 +591,13 @@
     }
 
     startButton.addEventListener('click', () => {
+      // Hide intro, show Creating Magic overlay full screen
       intro.style.display = 'none';
+      creatingMagic.classList.add('visible');
+
+      // When the model finishes loading, fade out the Creating Magic overlay and start the spin
       modelViewer.addEventListener('load', () => {
+        creatingMagic.classList.add('hidden');
         animateMultiSpin();
       }, { once: true });
     });
